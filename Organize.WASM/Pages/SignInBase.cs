@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Organize.Shared.Enitites;
 using Organize.Business;
+using Organize.Shared.Contracts;
 
 namespace Organize.WASM.Pages
 {
@@ -17,15 +18,17 @@ namespace Organize.WASM.Pages
         [Inject]
         private NavigationManager NavigationManager { get; set; }
 
+        [Inject]
+        private IUserManager UserManager { get; set; }
+
         protected  async void Onsubmit()
         {
             if(EditContext.Validate())
             {
                 return;
             }
-
-            var userManager = new UserManager();
-            var foundUser =  await userManager.TrySignInAndGetUserAsync(User);
+          
+            var foundUser =  await UserManager.TrySignInAndGetUserAsync(User);
 
             if(foundUser != null)
             {
@@ -33,6 +36,19 @@ namespace Organize.WASM.Pages
             }
 
 
+        }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            User = new User
+            {
+                FirstName = "x",
+                LastName = "x",
+                PhoneNumber = "123"
+            };
+
+            EditContext = new EditContext(User);
         }
         //protected string Username { get; set; } = "Lene";
 
@@ -46,6 +62,6 @@ namespace Organize.WASM.Pages
         //    Username = value;
         //}
 
-  
+
     }
 }
