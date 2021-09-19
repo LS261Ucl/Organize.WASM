@@ -1,4 +1,5 @@
 ﻿@page "/signin"
+
 @inherits SignInBase
 
 <div class="sign-form">
@@ -30,7 +31,7 @@
         <button class="sign-button btn btn-primary" type="submit">Sign in</button>
     </EditForm>
     <div class="signup">
-        <a href="/signup">Sign up</a>
+        <a href="@(User.UserName != null ? "/signup/" + User.UserName : "/signup")">Sign up</a>
     </div>
 </div>
 

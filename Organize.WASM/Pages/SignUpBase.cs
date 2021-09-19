@@ -1,4 +1,7 @@
 ﻿using GeneralUi.DropdownControl;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Primitives;
 using Organize.Shared.Enums;
 using System;
 using System.Collections.Generic;
@@ -9,6 +12,8 @@ namespace Organize.WASM.Pages
 {
     public class SignUpBase: SignBase
     {
+        [Inject]
+        private NavigationManager NavigationManager { get; set; }
         protected IList<DropdownItem<GenderTypeEnum>> GenderTypeDropDownItems { get; } = new List<DropdownItem<GenderTypeEnum>>();
 
         protected DropdownItem<GenderTypeEnum> SelectedGenderTypeDropDownItem { get; set; }
@@ -41,7 +46,23 @@ namespace Organize.WASM.Pages
 
             SelectedGenderTypeDropDownItem = female;
 
-           // TryGetUsernameFromUri();
+            TryGetUsernameFromUri();
+       
+        }
+
+        private void TryGetUsernameFromUri()
+        {
+            var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+            StringValues sv;
+            if(QueryHelpers.ParseQuery(uri.Query).TryGetValue("userName", out sv))
+            {
+                User.UserName = sv;
+            }
+
+        }
+        protected void OnValidSubmit()
+        {
+            NavigationManager.NavigateTo("signin");
         }
     }
 }

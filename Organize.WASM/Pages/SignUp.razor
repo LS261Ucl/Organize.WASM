@@ -1,8 +1,9 @@
 ﻿@page "/signup"
+@page "/signup/{Username}"
 @inherits SignUpBase
 @*@layout UnAuthLayout*@
 <div class="sign-form">
-    <EditForm EditContext="@EditContext" >
+    <EditForm EditContext="@EditContext" OnValidSubmit="OnValidSubmit">
         <DataAnnotationsValidator />
 
         <div class="sign-validation">
