@@ -1,0 +1,38 @@
+﻿@page "/signin"
+@inherits SignInBase
+
+<div class="sign-form">
+    <p class="welcome-text">Hello @(string.IsNullOrEmpty(User.UserName) ? "User" : Username) - Today is @Day!</p>
+
+    <EditForm EditContext="@EditContext">
+        <DataAnnotationsValidator />
+        @*<InputText type="text" class="sign-input form-control" placeholder="Username" @bind-value="User.UserName" />
+            <ValidationMessage For="@(() => User.UserName)"></ValidationMessage>*@
+        <div class="sign-validation">
+            <ValidationInput class="sign-input form-control"
+                             placeholder="Username"
+                             @bind-Value="@User.UserName"
+                             Error="@GetError(()=> User.UserName)"></ValidationInput>
+        </div>
+
+
+        @*<input type="text" class="sign-input form-control" placeholder="Password" @bind-value="User.Password" />
+            <ValidationMessage For="@(() => User.Password)"></ValidationMessage>*@
+        <div class="sign-validation">
+            <ValidationInput class="sign-input form-control"
+                             type="password"
+                             placeholder="Password"
+                             @bind-Value="@User.Password"
+                             Error="@GetError(()=> User.Password)"></ValidationInput>
+        </div>
+
+
+        <button class="sign-button btn btn-primary" type="submit">Sign in</button>
+    </EditForm>
+    <div class="signup">
+        <a href="/signup">Sign up</a>
+    </div>
+</div>
+
+
+
