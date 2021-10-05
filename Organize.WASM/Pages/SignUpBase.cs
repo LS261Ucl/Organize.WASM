@@ -3,10 +3,9 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
 using Organize.Shared.Enums;
-using System;
+using Organize.Shared.Contracts;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace Organize.WASM.Pages
 {
@@ -14,10 +13,14 @@ namespace Organize.WASM.Pages
     {
         [Inject]
         private NavigationManager NavigationManager { get; set; }
+
+        [Inject]
+        private IUserManager UserManager { get; set; }
+
         protected IList<DropdownItem<GenderTypeEnum>> GenderTypeDropDownItems { get; } = new List<DropdownItem<GenderTypeEnum>>();
 
         protected DropdownItem<GenderTypeEnum> SelectedGenderTypeDropDownItem { get; set; }
-
+            
         protected override void OnInitialized()
         {
             base.OnInitialized();
@@ -47,6 +50,7 @@ namespace Organize.WASM.Pages
             SelectedGenderTypeDropDownItem = female;
 
             TryGetUsernameFromUri();
+          
        
         }
 
@@ -58,7 +62,6 @@ namespace Organize.WASM.Pages
             {
                 User.UserName = sv;
             }
-
         }
         protected void OnValidSubmit()
         {

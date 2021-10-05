@@ -1,14 +1,14 @@
 ﻿@page "/signin"
-
 @inherits SignInBase
+
 
 <div class="sign-form">
     <p class="welcome-text">Hello @(string.IsNullOrEmpty(User.UserName) ? "User" : User.UserName) - Today is @Day!</p>
 
-    <EditForm EditContext="@EditContext" OnSubmit="Onsubmit" >
+    <EditForm EditContext="@EditContext" OnSubmit="Onsubmit">
         <DataAnnotationsValidator />
         @*<InputText type="text" class="sign-input form-control" placeholder="Username" @bind-value="User.UserName" />
-            <ValidationMessage For="@(() => User.UserName)"></ValidationMessage>*@
+        <ValidationMessage For="@(() => User.UserName)"></ValidationMessage>*@
         <div class="sign-validation">
             <ValidationInput class="sign-input form-control"
                              placeholder="Username"
@@ -18,7 +18,7 @@
 
 
         @*<input type="text" class="sign-input form-control" placeholder="Password" @bind-value="User.Password" />
-            <ValidationMessage For="@(() => User.Password)"></ValidationMessage>*@
+        <ValidationMessage For="@(() => User.Password)"></ValidationMessage>*@
         <div class="sign-validation">
             <ValidationInput class="sign-input form-control"
                              type="password"
@@ -26,12 +26,10 @@
                              @bind-Value="@User.Password"
                              Error="@GetError(()=> User.Password)"></ValidationInput>
         </div>
-
-
         <button class="sign-button btn btn-primary" type="submit">Sign in</button>
     </EditForm>
     <div class="signup">
-        <a href="@(User.UserName != null ? "/signup/" + User.UserName : "/signup")">Sign up</a>
+        <a href="@(User.UserName != null ? "/signup?username=" + User.UserName : "/signup")">Sign up</a>
     </div>
 </div>
 

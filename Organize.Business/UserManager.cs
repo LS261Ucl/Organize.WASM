@@ -1,17 +1,15 @@
 ﻿using Organize.Shared.Contracts;
 using Organize.Shared.Enitites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System;
 
 namespace Organize.Business
 {
     public class UserManager: IUserManager
     {
         public async Task<User> TrySignInAndGetUserAsync(User user)
-        {           
+        {
+            Console.WriteLine("Hi from UserManager");
             return  await Task.FromResult(new User());
         }
 

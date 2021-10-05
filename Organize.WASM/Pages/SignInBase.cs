@@ -23,7 +23,7 @@ namespace Organize.WASM.Pages
 
         protected  async void Onsubmit()
         {
-            if(EditContext.Validate())
+            if(!EditContext.Validate())
             {
                 return;
             }
