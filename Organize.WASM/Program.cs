@@ -23,8 +23,16 @@ namespace Organize.WASM
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
            // builder.Services.AddSingleton<IUserManager, UserManager>();
-            builder.Services.AddSingleton<IUserManager, UserManagerFake>();
-            await builder.Build().RunAsync();
+            builder.Services.AddScoped<IUserManager, UserManagerFake>();
+            builder.Services.AddScoped<IcurrentUserService, CurrentUserService>();
+
+            var host = builder.Build();
+
+            var currentUserService =  host.Services.GetRequiredService<IcurrentUserService>();
+            TestData.CreateTestUser();
+            currentUserService.CurrentUser = TestData.TestUser;
+
+            await host.RunAsync();
         }
     }
 }
