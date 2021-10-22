@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Organize.TestFake;
+using Organize.WASM.ItemEdit;
 
 namespace Organize.WASM
 {
@@ -25,6 +26,8 @@ namespace Organize.WASM
            // builder.Services.AddSingleton<IUserManager, UserManager>();
             builder.Services.AddScoped<IUserManager, UserManagerFake>();
             builder.Services.AddScoped<IcurrentUserService, CurrentUserService>();
+
+            builder.Services.AddScoped<ItemEditService>();
 
             var host = builder.Build();
 
