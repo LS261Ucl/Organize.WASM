@@ -25,8 +25,11 @@ namespace Organize.WASM.Components
         [CascadingParameter]
         public int TotalNumber { get; set; }
 
+        //[Inject]
+        //private ItemEditService ItemEditService { get; set; } metode using service call
+
         [Inject]
-        private ItemEditService ItemEditService { get; set; }
+        private NavigationManager NavigationManager { get; set; }
 
         private string DetailAreaId { get; set;}
 
@@ -36,9 +39,12 @@ namespace Organize.WASM.Components
             DetailAreaId = "detailArea" + Item.Position;
         }
 
-        private void OpenItemInEditMode()
+        private void OpenItemInEditMode()//metode using routing
         {
-            ItemEditService.EditItem = Item;
+            //  ItemEditService.EditItem = Item; Metode using service call
+            Uri.TryCreate("/items/" + Item.ItemTypeEnum + "/" + Item.Id,
+                UriKind.Relative, out var uri);
+            NavigationManager.NavigateTo(uri.ToString());
         }
 
     }
